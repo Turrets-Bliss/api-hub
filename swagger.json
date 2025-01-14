@@ -1,0 +1,446 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/properties/{id}": {
+      "get": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "getProperty",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyRequest"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "updateProperty",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "deleteProperty",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/properties": {
+      "get": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "getAllProperties",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PropertyDetails"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "createProperty",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PropertyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AdditionalData": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "property": {
+            "$ref": "#/components/schemas/PropertyDetails"
+          },
+          "videoLink": {
+            "type": "string"
+          },
+          "videoFrom": {
+            "type": "string"
+          },
+          "imageLink": {
+            "type": "string"
+          }
+        }
+      },
+      "Amenities": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "property": {
+            "$ref": "#/components/schemas/PropertyDetails"
+          },
+          "pool": {
+            "type": "boolean"
+          },
+          "gym": {
+            "type": "boolean"
+          },
+          "fireplace": {
+            "type": "boolean"
+          },
+          "equippedKitchen": {
+            "type": "boolean"
+          },
+          "laundry": {
+            "type": "boolean"
+          },
+          "mediaRoom": {
+            "type": "boolean"
+          },
+          "hotBath": {
+            "type": "boolean"
+          },
+          "basketballCourt": {
+            "type": "boolean"
+          },
+          "backYard": {
+            "type": "boolean"
+          },
+          "frontYard": {
+            "type": "boolean"
+          },
+          "garageAttached": {
+            "type": "boolean"
+          },
+          "heating": {
+            "type": "boolean"
+          },
+          "water": {
+            "type": "boolean"
+          },
+          "electricity": {
+            "type": "boolean"
+          },
+          "ventilation": {
+            "type": "boolean"
+          },
+          "centralAir": {
+            "type": "boolean"
+          },
+          "naturalGas": {
+            "type": "boolean"
+          },
+          "elevator": {
+            "type": "boolean"
+          },
+          "chairAccessible": {
+            "type": "boolean"
+          },
+          "wifi": {
+            "type": "boolean"
+          },
+          "washerAndDryer": {
+            "type": "boolean"
+          },
+          "smokeDetectors": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PricingDetails": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "property": {
+            "$ref": "#/components/schemas/PropertyDetails"
+          },
+          "afterPriceLabel": {
+            "type": "string"
+          },
+          "beforePriceLabel": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "homeOwnersAssociationFee": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "taxRate": {
+            "type": "number"
+          }
+        }
+      },
+      "PropertyDetails": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "propertyTitle": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "propertyType": {
+            "type": "string"
+          },
+          "propertyStatus": {
+            "type": "string"
+          },
+          "propertyCategory": {
+            "type": "string"
+          },
+          "lotSize": {
+            "type": "number"
+          },
+          "sizeInFt": {
+            "type": "number"
+          },
+          "bedrooms": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rooms": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "yearBuilt": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "garages": {
+            "type": "string"
+          },
+          "availableFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "garageSize": {
+            "type": "string"
+          },
+          "extraDetails": {
+            "type": "string"
+          },
+          "basement": {
+            "type": "string"
+          },
+          "exteriorMaterial": {
+            "type": "string"
+          },
+          "roofing": {
+            "type": "string"
+          },
+          "structureType": {
+            "type": "string"
+          },
+          "floors": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ownerNotes": {
+            "type": "string"
+          },
+          "energyIndex": {
+            "type": "number"
+          },
+          "energyClass": {
+            "type": "string"
+          },
+          "possessionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "city": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zipcode": {
+            "type": "string"
+          },
+          "neighbourhood": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "streetViewAngle": {
+            "type": "number"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "additionalData": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdditionalData"
+            }
+          },
+          "pricingDetails": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PricingDetails"
+            }
+          },
+          "amenities": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Amenities"
+            }
+          }
+        }
+      },
+      "PropertyRequest": {
+        "type": "object",
+        "properties": {
+          "propertyDetails": {
+            "$ref": "#/components/schemas/PropertyDetails"
+          },
+          "additionalData": {
+            "$ref": "#/components/schemas/AdditionalData"
+          },
+          "pricingDetails": {
+            "$ref": "#/components/schemas/PricingDetails"
+          },
+          "amenities": {
+            "$ref": "#/components/schemas/Amenities"
+          }
+        }
+      }
+    }
+  }
+}
