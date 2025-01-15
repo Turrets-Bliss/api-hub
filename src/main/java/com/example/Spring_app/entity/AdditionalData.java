@@ -22,7 +22,7 @@ public class AdditionalData {
     @Column(name = "video_from")
     private String videoFrom;
 
-    @Column(name = "image_link")
+    @Column(name = "image_link", columnDefinition = "TEXT")
     private String imageLink;
 
     // Getters and Setters

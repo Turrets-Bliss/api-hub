@@ -43,7 +43,7 @@ CREATE TABLE AdditionalData (
     property_id INT REFERENCES PropertyDetails(id) ON DELETE CASCADE ON UPDATE CASCADE,
     video_link VARCHAR(200),
     video_from VARCHAR(20),
-    image_link VARCHAR(900)
+    image_link TEXT
 );
 
 -- Table: PricingDetails
