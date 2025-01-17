@@ -4,6 +4,7 @@ import com.example.Spring_app.entity.AdditionalData;
 import com.example.Spring_app.entity.Amenities;
 import com.example.Spring_app.entity.PricingDetails;
 import com.example.Spring_app.entity.PropertyDetails;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +13,14 @@ import java.util.Date;
 
 public class PropertyRequest {
     private PropertyDetails propertyDetails;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private AdditionalData additionalData;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private PricingDetails pricingDetails;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Amenities amenities;
 
     public PropertyDetails getPropertyDetails() {

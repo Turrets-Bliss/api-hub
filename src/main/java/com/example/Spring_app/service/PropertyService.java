@@ -48,15 +48,16 @@ public class PropertyService {
 
     public PropertyRequest getProperty(Long id) {
         PropertyDetails property = propertyDetailsRepo.findById(id).orElseThrow();
-        AdditionalData additional = additionalDataRepo.findByPropertyId(id);
-        PricingDetails pricing = pricingDetailsRepo.findByPropertyId(id);
-        Amenities amenities = amenitiesRepo.findByPropertyId(id);
+//        AdditionalData additional = additionalDataRepo.findByPropertyId(id);
+//        PricingDetails pricing = pricingDetailsRepo.findByPropertyId(id);
+//        Amenities amenities = amenitiesRepo.findByPropertyId(id);
 
         PropertyRequest response = new PropertyRequest();
         response.setPropertyDetails(property);
-        response.setAdditionalData(additional);
-        response.setPricingDetails(pricing);
-        response.setAmenities(amenities);
+//        response.setAdditionalData(additional);
+//        response.setPricingDetails(pricing);
+//        response.setAmenities(amenities);
+
         return response;
     }
 
