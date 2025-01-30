@@ -9,3 +9,22 @@ services:
       - '5432:5432'
     volumes:
       - ./src/main/resources/persistence:/docker-entrypoint-initdb.d
+    networks:
+      - db-network
+
+  postgres2:
+    image: 'postgres:latest'
+    environment:
+      POSTGRES_DB: investor_db
+      POSTGRES_USER: nashtech
+      POSTGRES_PASSWORD: nashtech
+    ports:
+      - '5433:5432'  # Exposing port 5433 for the second PostgreSQL container
+    volumes:
+      - ./src/main/resources/persistence/investor_db:/docker-entrypoint-initdb.d
+    networks:
+      - db-network
+
+networks:
+  db-network:
+    driver: bridge

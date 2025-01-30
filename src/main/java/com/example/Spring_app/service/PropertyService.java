@@ -3,12 +3,14 @@ package com.example.Spring_app.service;
 
 import com.example.Spring_app.dto.PropertyRequest;
 import com.example.Spring_app.entity.*;
-import com.example.Spring_app.repository.*;
+import com.example.Spring_app.repository.primary.AdditionalDataRepository;
+import com.example.Spring_app.repository.primary.AmenitiesRepository;
+import com.example.Spring_app.repository.primary.PricingDetailsRepository;
+import com.example.Spring_app.repository.primary.PropertyDetailsRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
