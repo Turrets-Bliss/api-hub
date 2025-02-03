@@ -8,6 +8,9 @@ import java.math.BigDecimal;
 public class Investor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Primary key with auto-generated value
+
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
@@ -27,6 +30,13 @@ public class Investor {
     private BigDecimal roi;
 
     // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public Long getUserId() {
         return userId;
     }

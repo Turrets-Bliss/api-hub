@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/investor")
@@ -23,20 +24,20 @@ public class InvestorController {
 
     // 2. Endpoint for fetching ROI for a specific user
     @GetMapping("/roi/{userId}")
-    public List<BigDecimal> getRoiByUserId(@PathVariable Long userId) {
-        return investorService.getRoiByUserId(userId); // Now returns a list of BigDecimal (ROIs)
+    public Map<String, BigDecimal> getRoiByUserId(@PathVariable Long userId) {
+        return investorService.getRoiByUserId(userId);
     }
 
     // 3. Endpoint for fetching current investments for a specific user
     @GetMapping("/investments/{userId}")
-    public List<BigDecimal> getInvestmentsByUserId(@PathVariable Long userId) {
-        return investorService.getInvestmentsByUserId(userId); // Now returns a list of BigDecimal (Investments)
+    public List<Map<String, Object>> getInvestmentsByUserId(@PathVariable Long userId) {
+        return investorService.getInvestmentsByUserId(userId); // Now returns a list of maps with only the required keys
     }
 
     // 4. Endpoint for fetching current market value for a specific user
     @GetMapping("/market-value/{userId}")
-    public List<BigDecimal> getMarketValueByUserId(@PathVariable Long userId) {
-        return investorService.getMarketValueByUserId(userId); // Now returns a list of BigDecimal (Market Values)
+    public List<Map<String, Object>> getMarketValueByUserId(@PathVariable Long userId) {
+        return investorService.getMarketValueByUserId(userId); // Now returns a list of maps with only the required keys
     }
 
 }

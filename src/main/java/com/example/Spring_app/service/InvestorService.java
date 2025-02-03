@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class InvestorService {
@@ -41,48 +40,86 @@ public class InvestorService {
     }
 
     // Fetch only ROI for a specific user
-    public List<BigDecimal> getRoiByUserId(Long userId) {
+    public Map<String, BigDecimal> getRoiByUserId(Long userId) {
         List<Investor> investors = getInvestorsByUserId(userId);
+
         if (investors == null || investors.isEmpty()) {
             System.out.println("No investors found with userId: " + userId);
-            return null; // or throw an exception based on your use case
+            return Collections.emptyMap(); // Return an empty map instead of null
         }
 
-        List<BigDecimal> rois = new ArrayList<>();
-        for (Investor investor : investors) {
-            rois.add(investor.getRoi());
-        }
-        return rois;
+        // Get the max values
+        BigDecimal maxMarketValue = investors.stream()
+                .map(Investor::getCurrentMarketValue)
+                .filter(Objects::nonNull)
+                .sorted(Comparator.reverseOrder())  // Sorting in descending order
+                .findFirst()  // Find the first element after sorting
+                .orElse(BigDecimal.ZERO);
+
+        BigDecimal maxInvestment = investors.stream()
+                .map(Investor::getCurrentInvestments)
+                .filter(Objects::nonNull)
+                .sorted(Comparator.reverseOrder())  // Sorting in descending order
+                .findFirst()  // Find the first element after sorting
+                .orElse(BigDecimal.ZERO);
+
+        // Calculate ROI
+        BigDecimal roi = maxMarketValue.subtract(maxInvestment);
+
+        // Calculate Max Investment (maxInvestment * 10)
+        BigDecimal maxInvestments = maxInvestment.multiply(BigDecimal.TEN);
+
+        // Create response map
+        Map<String, BigDecimal> response = new HashMap<>();
+        response.put("ROI", roi);
+        response.put("Max Value", maxInvestments);
+        response.put("Current Investment", maxInvestment);
+
+        return response;
     }
 
+
     // Fetch only current investments for a specific user
-    public List<BigDecimal> getInvestmentsByUserId(Long userId) {
-        List<Investor> investors = getInvestorsByUserId(userId);
+    public List<Map<String, Object>> getInvestmentsByUserId(Long userId) {
+        // Fetch all investments by the given userId
+        List<Investor> investors = getInvestorsByUserId(userId);  // Ensure getInvestorsByUserId is correct
         if (investors == null || investors.isEmpty()) {
             System.out.println("No investors found with userId: " + userId);
-            return null; // or throw an exception based on your use case
+            return Collections.emptyList(); // Return an empty list instead of null
         }
 
-        List<BigDecimal> investments = new ArrayList<>();
+        List<Map<String, Object>> responseList = new ArrayList<>();
         for (Investor investor : investors) {
-            investments.add(investor.getCurrentInvestments());
+            // Create a map for each investor's investment data
+            Map<String, Object> investmentData = new HashMap<>();
+
+            // Add the investment data to the map
+            investmentData.put("currentInvestments", investor.getCurrentInvestments());
+            investmentData.put("yearOfInvestment", investor.getYearOfInvestment());
+
+            // Add the map to the response list
+            responseList.add(investmentData);
         }
-        return investments;
+
+        return responseList;
     }
 
     // Fetch only current market value for a specific user
-    public List<BigDecimal> getMarketValueByUserId(Long userId) {
+    public List<Map<String, Object>> getMarketValueByUserId(Long userId) {
         List<Investor> investors = getInvestorsByUserId(userId);
         if (investors == null || investors.isEmpty()) {
             System.out.println("No investors found with userId: " + userId);
-            return null; // or throw an exception based on your use case
+            return Collections.emptyList(); // Return an empty list instead of null
         }
 
-        List<BigDecimal> marketValues = new ArrayList<>();
+        List<Map<String, Object>> responseList = new ArrayList<>();
         for (Investor investor : investors) {
-            marketValues.add(investor.getCurrentMarketValue());
+            Map<String, Object> marketValueData = new HashMap<>();
+            marketValueData.put("currentMarketValue", investor.getCurrentMarketValue());
+            marketValueData.put("yearOfInvestment", investor.getYearOfInvestment());
+            responseList.add(marketValueData);
         }
-        return marketValues;
+        return responseList;
     }
 
     // Private helper method to fetch investors by user ID (returns a list of investors)
