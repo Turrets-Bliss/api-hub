@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  spring-cloud-gateway:
+    build:
+      context: .
+    container_name: spring_cloud_gateway
+    ports:
+      - "8081:8081" # Expose the Gateway on port 8081
+    environment:
+      SPRING_APPLICATION_NAME: Spring_app_gateway
+      LOGGING_LEVEL_ROOT: DEBUG
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CLOUD_GATEWAY: TRACE
+    networks:
+      - app-network
+
+networks:
+  app-network:

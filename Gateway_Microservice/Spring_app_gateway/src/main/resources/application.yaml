@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: crud-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/**
+
+        - id: identity-service
+          uri: lb://IDENTITY-SERVICE
+          Predicates:
+            - Path=/auth/**
+
+  application:
+    name: SPRING-APP-GATEWAY
+
+security:
+  oauth2:
+    resourceserver:
+      jwt:
+        issuer-uri: http://localhost:8080/realms/springboot-microservice-realm
+        #jwk-set-uri: http://localhost:8080/realms/springboot-microservice-realm/protocol/openid-connect/certs
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+server:
+  port: 8081  # Gateway is running on port 8081
