@@ -96,6 +96,8 @@ public class InvestorService {
             // Add the investment data to the map
             investmentData.put("currentInvestments", investor.getCurrentInvestments());
             investmentData.put("yearOfInvestment", investor.getYearOfInvestment());
+            investmentData.put("currentMarketValue", investor.getCurrentMarketValue());
+
 
             // Add the map to the response list
             responseList.add(investmentData);
