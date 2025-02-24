@@ -108,8 +108,12 @@ INSERT INTO PropertyDetails (
 ('Contemporary Urban Loft', 'A sleek loft in the heart of the urban district.', 'Loft', 'For Rent', 'Active', 1200.00, 950.00, 1, 3, 2017, 'Street parking', '2025-04-01', 'Small', 'Modern appliances', 'None', 'Concrete', 'Flat', 'Loft', 1, 'City lifestyle.', 220.0000, 'A', '2025-05-01', 'Seattle', 'USA', 'Washington', '98101', 'Downtown', '678 Urban Ave', 35.123456, 47.606209, -122.332069),
 ('Rural Mountain Cabin', 'A rustic cabin nestled in the mountains.', 'Cabin', 'For Sale', 'Active', 8000.00, 2000.00, 2, 4, 2010, '1-car garage', '2025-06-01', 'Small', 'Wood-burning stove', 'Finished', 'Wood', 'Shingle', 'Detached', 1, 'Secluded retreat.', 140.0000, 'C', '2025-07-01', 'Denver', 'USA', 'Colorado', '80202', 'Rocky Mountains', '789 Pine Rd', 50.123456, 39.739236, -104.990251),
 ('High-End Penthouse', 'A luxurious penthouse with stunning views of the skyline.', 'Penthouse', 'For Sale', 'Active', 3500.00, 2200.00, 3, 8, 2015, 'Private garage', '2025-07-15', 'Large', 'Smart home, Gym', 'None', 'Glass', 'Metal', 'Penthouse', 2, 'Exclusive property.', 250.0000, 'A', '2025-08-15', 'Los Angeles', 'USA', 'California', '90015', 'Downtown', '123 Skyview Blvd', 25.123456, 34.052235, -118.243683),
-('Suburban Family House', 'A large family house in a peaceful neighborhood.', 'House', 'For Rent', 'Active', 5000.00, 2300.00, 4, 6, 2015, '2-car garage', '2025-09-01', 'Medium', 'Deck, Fireplace', 'Finished', 'Wood', 'Asphalt', 'Detached', 2, 'Great for families.', 160.0000, 'B', '2025-10-01', 'Dallas', 'USA', 'Texas', '75201', 'Green Meadows', '890 Maple St', 70.654321, 32.776665, -96.796989);
-
+('Suburban Family House', 'A large family house in a peaceful neighborhood.', 'House', 'For Rent', 'Active', 5000.00, 2300.00, 4, 6, 2015, '2-car garage', '2025-09-01', 'Medium', 'Deck, Fireplace', 'Finished', 'Wood', 'Asphalt', 'Detached', 2, 'Great for families.', 160.0000, 'B', '2025-10-01', 'Dallas', 'USA', 'Texas', '75201', 'Green Meadows', '890 Maple St', 70.654321, 32.776665, -96.796989),
+('ATS Rhapsody', 'ATS Ready to Move in Apartments in Greater Noida West.', 'Apartment', 'For Sale', 'Active', 5000.00, 2500.50, 4, 7, 2015, '2-car garage', '2025-04-01', 'Large', 'Pool, Fireplace', 'Finished', 'Brick', 'Tile', 'Detached', 2, 'Well-maintained property.', 150.0000, 'A', '2025-05-15', 'Noida', 'India', 'UttarPradesh', '201301', 'Sunny Heights', 'Sector 1, Greater Noida West', 30.123456, 34.052235, -118.243683),
+('ATS Allure', 'ATS Apartments in Greater Noida West.', 'Apartment', 'For Rent', 'Active', 2000.00, 1200.00, 2, 4, 2020, 'Underground garage', '2025-06-01', 'Small', 'Smart home system', 'None', 'Concrete', 'Flat', 'Apartment', 1, 'Pet-friendly.', 200.0000, 'B', '2025-07-01', 'Greater Noida', 'India', 'UttarPradesh', '201319', 'Downtown', 'Sector 22D, Yamuna Expressway, Greater Noida', 45.654321, 40.712776, -74.005974),
+('ATS Kabana High', 'ATS Office & Retail Space in Greater Noida West.', 'Retail Space', 'For Sale', 'Active', 3500.00, 1800.00, 3, 5, 2010, '2-car garage', '2025-07-01', 'Medium', 'Garden, Backyard', 'Partially finished', 'Wood', 'Shingle', 'Detached', 1, 'Quiet neighborhood.', 120.0000, 'C', '2025-08-01', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'West Side', 'Sector 4, Greater Noida West', 60.654321, 41.878113, -87.629799),
+('ATS Destinaire', 'Ats destinaire is the newly launched residential property by ats group.', 'Residential', 'For Sale', 'Active', 10000.00, 3500.00, 5, 10, 2000, '3-car garage', '2025-09-01', 'Large', 'Stable, Tennis Court', 'Full', 'Stone', 'Metal', 'Detached', 3, 'Private retreat.', 100.0000, 'A', '2025-10-01', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'West Noida Extension', 'Sector 1, Greater Noida West', 90.123456, 30.267153, -97.743060),
+('ATS Homekraft Nobility', 'ATS Homekraft Luxury Apartments in Greater Noida West.', 'Apartments', 'For Sale', 'Active', 2500.00, 1500.00, 2, 6, 2018, 'Underground parking', '2025-05-01', 'Medium', 'Concierge service', 'None', 'Glass', 'Slate', 'Condominium', 1, 'Exclusive amenities.', 180.0000, 'A', '2025-06-15', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'WestSide', ' Sector 4, Greater Noida West', 20.123456, 25.761680, -80.191790);
 
 INSERT INTO AdditionalData (property_id, video_link, video_from, image_link) VALUES
 (1, 'http://example.com/video1.mp4', 'YouTube', 'http://example.com/image1.jpg'),
@@ -119,9 +123,14 @@ INSERT INTO AdditionalData (property_id, video_link, video_from, image_link) VAL
 (5, 'http://example.com/video5.mp4', 'Dailymotion', 'http://example.com/image5.jpg'),
 (6, 'http://example.com/video6.mp4', 'YouTube', 'http://example.com/image6.jpg'),
 (7, 'http://example.com/video7.mp4', 'Vimeo', 'http://example.com/image7.jpg'),
-(8, 'http://example.com/video8.mp4', 'Dailymotion', 'http://example.com/image8.jpg'),
+(8, 'http://example.com/video8.mp4', 'Vimeo', 'http://example.com/image8.jpg'),
 (9, 'http://example.com/video9.mp4', 'YouTube', 'http://example.com/image9.jpg'),
-(10, 'http://example.com/video10.mp4', 'Vimeo', 'http://example.com/image10.jpg');
+(10, 'http://example.com/video10.mp4', 'Vimeo', 'http://example.com/image10.jpg'),
+(11, 'http://example.com/video11.mp4', 'Dailymotion', 'http://example.com/image11.jpg'),
+(12, 'http://example.com/video12.mp4', 'YouTube', 'http://example.com/image12.jpg'),
+(13, 'http://example.com/video13.mp4', 'Vimeo', 'http://example.com/image13.jpg'),
+(14, 'http://example.com/video14.mp4', 'YouTube', 'http://example.com/image14.jpg'),
+(15, 'http://example.com/video15.mp4', 'Dailymotion', 'http://example.com/image15.jpg');
 
 -- Insert related data into PricingDetails
 -- Use random price and fee data for each property
@@ -136,7 +145,12 @@ INSERT INTO PricingDetails (property_id, after_price_label, before_price_label, 
 (7, 'New Price', 'Old Price', 1800000, 300, 7.0),
 (8, 'New Price', 'Old Price', 950000, 200, 6.8),
 (9, 'New Price', 'Old Price', 1200000, 250, 7.5),
-(10, 'New Price', 'Old Price', 750000, 150, 6.9);
+(10, 'New Price', 'Old Price', 750000, 150, 6.9),
+(11, 'New Price', 'Old Price', 2200000, 450, 7.6),
+(12, 'New Price', 'Old Price', 1350000, 300, 7.3),
+(13, 'New Price', 'Old Price', 2800000, 400, 7.1),
+(14, 'New Price', 'Old Price', 900000, 250, 6.7),
+(15, 'New Price', 'Old Price', 3200000, 500, 6.9);
 
 
 INSERT INTO Amenities (
@@ -154,5 +168,9 @@ INSERT INTO Amenities (
 (7, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE),
 (8, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE),
 (9, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
-(10, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE);
-
+(10, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE),
+(11, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE),
+(12, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE),
+(13, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE),
+(14, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
+(15, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE);
