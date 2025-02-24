@@ -12,7 +12,7 @@ public class Investor {
     private Long id; // Primary key with auto-generated value
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private String userId;
 
     @Column(name = "year_of_investment", nullable = false)
     private Integer yearOfInvestment;
@@ -37,11 +37,11 @@ public class Investor {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -16,7 +16,7 @@ public class InvestorService {
     private InvestorRepository investorRepository;
 
     // Fetch all data for a specific user
-    public List<InvestorDTO> getInvestorDetails(Long userId) {
+    public List<InvestorDTO> getInvestorDetails(String userId) {
         List<Investor> investors = getInvestorsByUserId(userId);
 
         if (investors == null || investors.isEmpty()) {
@@ -40,7 +40,7 @@ public class InvestorService {
     }
 
     // Fetch only ROI for a specific user
-    public Map<String, BigDecimal> getRoiByUserId(Long userId) {
+    public Map<String, BigDecimal> getRoiByUserId(String userId) {
         List<Investor> investors = getInvestorsByUserId(userId);
 
         if (investors == null || investors.isEmpty()) {
@@ -80,7 +80,7 @@ public class InvestorService {
 
 
     // Fetch only current investments for a specific user
-    public List<Map<String, Object>> getInvestmentsByUserId(Long userId) {
+    public List<Map<String, Object>> getInvestmentsByUserId(String userId) {
         // Fetch all investments by the given userId
         List<Investor> investors = getInvestorsByUserId(userId);  // Ensure getInvestorsByUserId is correct
         if (investors == null || investors.isEmpty()) {
@@ -107,7 +107,7 @@ public class InvestorService {
     }
 
     // Fetch only current market value for a specific user
-    public List<Map<String, Object>> getMarketValueByUserId(Long userId) {
+    public List<Map<String, Object>> getMarketValueByUserId(String userId) {
         List<Investor> investors = getInvestorsByUserId(userId);
         if (investors == null || investors.isEmpty()) {
             System.out.println("No investors found with userId: " + userId);
@@ -125,7 +125,23 @@ public class InvestorService {
     }
 
     // Private helper method to fetch investors by user ID (returns a list of investors)
-    private List<Investor> getInvestorsByUserId(Long userId) {
+    private List<Investor> getInvestorsByUserId(String userId) {
         return investorRepository.findByUserId(userId); // Assuming this returns List<Investor>
     }
+
+    public InvestorDTO addInvestor(InvestorDTO investorDTO) {
+        Investor investor = new Investor();
+        investor.setUserId(investorDTO.getUserId());
+        investor.setYearOfInvestment(investorDTO.getYearOfInvestment());
+        investor.setPropertyId(investorDTO.getPropertyId());
+        investor.setCurrentMarketValue(investorDTO.getCurrentMarketValue());
+        investor.setCurrentInvestments(investorDTO.getCurrentInvestments());
+        investor.setRoi(investorDTO.getRoi());
+
+        // Save the new investor entry to the database
+        investor = investorRepository.save(investor);
+
+        return investorDTO;
+    }
+
 }

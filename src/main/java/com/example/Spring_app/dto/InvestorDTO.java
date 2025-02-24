@@ -3,7 +3,7 @@ package com.example.Spring_app.dto;
 import java.math.BigDecimal;
 
 public class InvestorDTO {
-    private Long userId;                 // Unique identifier for the user
+    private String userId;                 // Unique identifier for the user
     private Integer yearOfInvestment;    // Year of the investment
     private Integer propertyId;          // Property ID associated with the investment
     private BigDecimal currentMarketValue; // Current market value
@@ -11,11 +11,11 @@ public class InvestorDTO {
     private BigDecimal roi;              // Return on investment
 
     // Getter and Setter for userId
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

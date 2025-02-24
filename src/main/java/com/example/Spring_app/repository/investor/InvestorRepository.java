@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface InvestorRepository extends JpaRepository<Investor, Long> {
+public interface InvestorRepository extends JpaRepository<Investor, String> {
     // Retrieve all investments for a specific user
-    List<Investor> findByUserId(Long userId);
+    List<Investor> findByUserId(String userId);
 
     // Retrieve all investments for a specific user and year
-    List<Investor> findByUserIdAndYearOfInvestment(Long userId, Integer yearOfInvestment);
+    List<Investor> findByUserIdAndYearOfInvestment(String userId, Integer yearOfInvestment);
 }

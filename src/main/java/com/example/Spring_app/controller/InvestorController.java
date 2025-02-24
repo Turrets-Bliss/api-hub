@@ -16,28 +16,34 @@ public class InvestorController {
     @Autowired
     private InvestorService investorService;
 
-    // 1. Endpoint for fetching all data for a specific user
+    // 1. Fetch all data for a specific user
     @GetMapping("/details/{userId}")
-    public List<InvestorDTO> getInvestorDetails(@PathVariable Long userId) {
-        return investorService.getInvestorDetails(userId); // Now returns a list of InvestorDTO
+    public List<InvestorDTO> getInvestorDetails(@PathVariable String userId) { // Changed Long to String
+        return investorService.getInvestorDetails(userId);
     }
 
-    // 2. Endpoint for fetching ROI for a specific user
+    // 2. Fetch ROI for a specific user
     @GetMapping("/roi/{userId}")
-    public Map<String, BigDecimal> getRoiByUserId(@PathVariable Long userId) {
+    public Map<String, BigDecimal> getRoiByUserId(@PathVariable String userId) { // Changed Long to String
         return investorService.getRoiByUserId(userId);
     }
 
-    // 3. Endpoint for fetching current investments for a specific user
+    // 3. Fetch current investments for a specific user
     @GetMapping("/investments/{userId}")
-    public List<Map<String, Object>> getInvestmentsByUserId(@PathVariable Long userId) {
-        return investorService.getInvestmentsByUserId(userId); // Now returns a list of maps with only the required keys
+    public List<Map<String, Object>> getInvestmentsByUserId(@PathVariable String userId) { // Changed Long to String
+        return investorService.getInvestmentsByUserId(userId);
     }
 
-    // 4. Endpoint for fetching current market value for a specific user
+    // 4. Fetch current market value for a specific user
     @GetMapping("/market-value/{userId}")
-    public List<Map<String, Object>> getMarketValueByUserId(@PathVariable Long userId) {
-        return investorService.getMarketValueByUserId(userId); // Now returns a list of maps with only the required keys
+    public List<Map<String, Object>> getMarketValueByUserId(@PathVariable String userId) { // Changed Long to String
+        return investorService.getMarketValueByUserId(userId);
     }
 
+    // 5. Add investor
+    @PostMapping("/create")
+    public InvestorDTO addInvestor(@RequestBody InvestorDTO investorDTO) {
+        return investorService.addInvestor(investorDTO);
+    }
 }
+

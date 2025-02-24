@@ -1,6 +1,6 @@
 -- Create schema for the Investment table
 CREATE TABLE Investment (
-    user_id BIGINT,
+    user_id VARCHAR,
     year_of_investment INT,
     property_id INT,
     current_market_value DECIMAL(10, 2) DEFAULT 0.00,
