@@ -45,5 +45,16 @@ public class InvestorController {
     public InvestorDTO addInvestor(@RequestBody InvestorDTO investorDTO) {
         return investorService.addInvestor(investorDTO);
     }
+
+    // DELETE: Remove investor by userId
+    @DeleteMapping("/delete/{userId}")
+    public String deleteInvestor(@PathVariable String userId) {
+        boolean isDeleted = investorService.deleteInvestorByUserId(userId);
+        if (isDeleted) {
+            return "Investor with ID " + userId + " deleted successfully.";
+        } else {
+            return "Investor with ID " + userId + " not found.";
+        }
+    }
 }
 

@@ -144,4 +144,13 @@ public class InvestorService {
         return investorDTO;
     }
 
+    public boolean deleteInvestorByUserId(String userId) {
+        List<Investor> investors = investorRepository.findByUserId(userId);
+        if (investors.isEmpty()) {
+            return false;
+        }
+        investorRepository.deleteAll(investors);
+        return true;
+    }
+
 }
