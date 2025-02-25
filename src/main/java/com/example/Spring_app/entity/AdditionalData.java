@@ -3,6 +3,8 @@ package com.example.Spring_app.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "AdditionalData")
 public class AdditionalData {
@@ -23,7 +25,7 @@ public class AdditionalData {
     private String videoFrom;
 
     @Column(name = "image_link", columnDefinition = "TEXT")
-    private String imageLink;
+    private List<String> imageLink;
 
     // Getters and Setters
 
@@ -59,11 +61,11 @@ public class AdditionalData {
         this.videoFrom = videoFrom;
     }
 
-    public String getImageLink() {
+    public List<String> getImageLink() {
         return imageLink;
     }
 
-    public void setImageLink(String imageLink) {
+    public void setImageLink(List<String>imageLink) {
         this.imageLink = imageLink;
     }
 }

@@ -43,7 +43,7 @@ CREATE TABLE AdditionalData (
     property_id INT REFERENCES PropertyDetails(id) ON DELETE CASCADE ON UPDATE CASCADE,
     video_link VARCHAR(200),
     video_from VARCHAR(20),
-    image_link TEXT
+    image_link TEXT[]
 );
 
 -- Table: PricingDetails
@@ -116,21 +116,22 @@ INSERT INTO PropertyDetails (
 ('ATS Homekraft Nobility', 'ATS Homekraft Luxury Apartments in Greater Noida West.', 'Apartments', 'For Sale', 'Active', 2500.00, 1500.00, 2, 6, 2018, 'Underground parking', '2025-05-01', 'Medium', 'Concierge service', 'None', 'Glass', 'Slate', 'Condominium', 1, 'Exclusive amenities.', 180.0000, 'A', '2025-06-15', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'WestSide', ' Sector 4, Greater Noida West', 20.123456, 25.761680, -80.191790);
 
 INSERT INTO AdditionalData (property_id, video_link, video_from, image_link) VALUES
-(1, 'http://example.com/video1.mp4', 'YouTube', 'http://example.com/image1.jpg'),
-(2, 'http://example.com/video2.mp4', 'Vimeo', 'http://example.com/image2.jpg'),
-(3, 'http://example.com/video3.mp4', 'YouTube', 'http://example.com/image3.jpg'),
-(4, 'http://example.com/video4.mp4', 'Vimeo', 'http://example.com/image4.jpg'),
-(5, 'http://example.com/video5.mp4', 'Dailymotion', 'http://example.com/image5.jpg'),
-(6, 'http://example.com/video6.mp4', 'YouTube', 'http://example.com/image6.jpg'),
-(7, 'http://example.com/video7.mp4', 'Vimeo', 'http://example.com/image7.jpg'),
-(8, 'http://example.com/video8.mp4', 'Vimeo', 'http://example.com/image8.jpg'),
-(9, 'http://example.com/video9.mp4', 'YouTube', 'http://example.com/image9.jpg'),
-(10, 'http://example.com/video10.mp4', 'Vimeo', 'http://example.com/image10.jpg'),
-(11, 'http://example.com/video11.mp4', 'Dailymotion', 'http://example.com/image11.jpg'),
-(12, 'http://example.com/video12.mp4', 'YouTube', 'http://example.com/image12.jpg'),
-(13, 'http://example.com/video13.mp4', 'Vimeo', 'http://example.com/image13.jpg'),
-(14, 'http://example.com/video14.mp4', 'YouTube', 'http://example.com/image14.jpg'),
-(15, 'http://example.com/video15.mp4', 'Dailymotion', 'http://example.com/image15.jpg');
+(1, 'http://example.com/video1.mp4', 'YouTube', ARRAY['http://example.com/image1.jpg', 'http://example.com/image1_2.jpg']),
+(2, 'http://example.com/video2.mp4', 'Vimeo', ARRAY['http://example.com/image2.jpg', 'http://example.com/image2_2.jpg']),
+(3, 'http://example.com/video3.mp4', 'YouTube', ARRAY['http://example.com/image3.jpg']),
+(4, 'http://example.com/video4.mp4', 'Vimeo', ARRAY['http://example.com/image4.jpg', 'http://example.com/image4_2.jpg']),
+(5, 'http://example.com/video5.mp4', 'Dailymotion', ARRAY['http://example.com/image5.jpg']),
+(6, 'http://example.com/video6.mp4', 'YouTube', ARRAY['http://example.com/image6.jpg', 'http://example.com/image6_2.jpg']),
+(7, 'http://example.com/video7.mp4', 'Vimeo', ARRAY['http://example.com/image7.jpg']),
+(8, 'http://example.com/video8.mp4', 'Vimeo', ARRAY['http://example.com/image8.jpg', 'http://example.com/image8_2.jpg']),
+(9, 'http://example.com/video9.mp4', 'YouTube', ARRAY['http://example.com/image9.jpg']),
+(10, 'http://example.com/video10.mp4', 'Vimeo', ARRAY['http://example.com/image10.jpg', 'http://example.com/image10_2.jpg']),
+(11, 'http://example.com/video11.mp4', 'Dailymotion', ARRAY['http://example.com/image11.jpg']),
+(12, 'http://example.com/video12.mp4', 'YouTube', ARRAY['http://example.com/image12.jpg', 'http://example.com/image12_2.jpg']),
+(13, 'http://example.com/video13.mp4', 'Vimeo', ARRAY['http://example.com/image13.jpg']),
+(14, 'http://example.com/video14.mp4', 'YouTube', ARRAY['http://example.com/image14.jpg', 'http://example.com/image14_2.jpg']),
+(15, 'http://example.com/video15.mp4', 'Dailymotion', ARRAY['http://example.com/image15.jpg']);
+
 
 -- Insert related data into PricingDetails
 -- Use random price and fee data for each property
