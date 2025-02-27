@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080",
+      "url": "http://localhost:8082",
       "description": "Generated server url"
     }
   ],
@@ -161,6 +161,36 @@
         }
       }
     },
+    "/api/investor/create": {
+      "post": {
+        "tags": [
+          "investor-controller"
+        ],
+        "operationId": "addInvestor",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvestorDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/investor/roi/{userId}": {
       "get": {
         "tags": [
@@ -173,8 +203,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             }
           }
         ],
@@ -184,8 +213,8 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "array",
-                  "items": {
+                  "type": "object",
+                  "additionalProperties": {
                     "type": "number"
                   }
                 }
@@ -207,8 +236,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             }
           }
         ],
@@ -220,7 +248,10 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "number"
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "object"
+                    }
                   }
                 }
               }
@@ -241,8 +272,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             }
           }
         ],
@@ -254,7 +284,10 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "number"
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "object"
+                    }
                   }
                 }
               }
@@ -275,8 +308,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             }
           }
         ],
@@ -290,6 +322,36 @@
                   "items": {
                     "$ref": "#/components/schemas/InvestorDTO"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/investor/delete/{userId}": {
+      "delete": {
+        "tags": [
+          "investor-controller"
+        ],
+        "operationId": "deleteInvestor",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -317,7 +379,10 @@
             "type": "string"
           },
           "imageLink": {
-            "type": "string"
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -581,8 +646,7 @@
         "type": "object",
         "properties": {
           "userId": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           "yearOfInvestment": {
             "type": "integer",
