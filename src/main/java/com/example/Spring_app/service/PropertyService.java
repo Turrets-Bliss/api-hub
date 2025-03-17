@@ -7,14 +7,20 @@ import com.example.Spring_app.repository.primary.AdditionalDataRepository;
 import com.example.Spring_app.repository.primary.AmenitiesRepository;
 import com.example.Spring_app.repository.primary.PricingDetailsRepository;
 import com.example.Spring_app.repository.primary.PropertyDetailsRepository;
+import com.example.Spring_app.repository.primary.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PropertyService {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private PropertyDetailsRepository propertyDetailsRepo;
@@ -25,10 +31,43 @@ public class PropertyService {
     @Autowired
     private AmenitiesRepository amenitiesRepo;
 
+    public String createUser(UUID userId) {
+        // Check if the user already exists
+        Optional<User> existingUser = userRepository.findById(userId);
+        if (existingUser.isPresent()) {
+            return "User already registered";
+        }
+
+        // Create new user
+        User newUser = new User();
+        newUser.setId(userId); // Assuming User entity has a field 'userId'
+        userRepository.save(newUser);
+
+        return "User registered successfully";
+    }
+
+    public String deleteUser(UUID userId) {
+        // Check if user exists
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return "User not found";
+        }
+
+        // Delete user
+        userRepository.deleteById(userId);
+        return "User deleted successfully";
+    }
+
     @Transactional
-    public String createProperty(PropertyRequest request) {
+    public String createProperty(UUID userId, PropertyRequest request) {
         try {
-            PropertyDetails property = propertyDetailsRepo.save(request.getPropertyDetails());
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            // Save PropertyDetails
+            PropertyDetails property = request.getPropertyDetails();
+            property.setUser(user); // ✅ Associate with User
+            property = propertyDetailsRepo.save(property);
 
             if (property.getLatitude() == null || property.getLongitude() == null) {
                 property.setLatitude(null);
@@ -48,32 +87,36 @@ public class PropertyService {
         }
     }
 
-    public PropertyRequest getProperty(Long id) {
-        PropertyDetails property = propertyDetailsRepo.findById(id).orElseThrow();
-//        AdditionalData additional = additionalDataRepo.findByPropertyId(id);
-//        PricingDetails pricing = pricingDetailsRepo.findByPropertyId(id);
-//        Amenities amenities = amenitiesRepo.findByPropertyId(id);
+
+    public PropertyRequest getProperty(UUID userId, Long propertyId) {
+        PropertyDetails property = propertyDetailsRepo.findByIdAndUserId(propertyId, userId)
+                .orElseThrow(() -> new RuntimeException("Property not found for the given user"));
 
         PropertyRequest response = new PropertyRequest();
         response.setPropertyDetails(property);
-//        response.setAdditionalData(additional);
-//        response.setPricingDetails(pricing);
-//        response.setAmenities(amenities);
-
         return response;
     }
 
-    public List<PropertyDetails> getAllProperties() {
-        return propertyDetailsRepo.findAll();
+
+    public List<PropertyDetails> getAllProperties(UUID userId) {
+        // Fetch properties only for the given user
+        return propertyDetailsRepo.findByUserId(userId);
     }
 
-    @Transactional
-    public String updateProperty(Long propertyId, PropertyRequest request) {
-        try {
-            // Ensure PropertyDetails exists
-            PropertyDetails property = propertyDetailsRepo.findById(propertyId).orElseThrow(() -> new RuntimeException("Property not found"));
 
-            // Update PropertyDetails fields (Update only the fields provided)
+    @Transactional
+    public String updateProperty(Long propertyId, UUID userId, PropertyRequest request) {
+        try {
+            // Fetch the user from the database using userId from parameter
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            // Ensure the property exists and belongs to the user
+            PropertyDetails property = propertyDetailsRepo.findByIdAndUserId(propertyId, userId)
+                    .orElseThrow(() -> new RuntimeException("Property not found or user not authorized"));
+
+            // Set the fetched user to the property (fixing the null constraint issue)
+            property.setUser(user);
             property.setPropertyTitle(request.getPropertyDetails().getPropertyTitle());
             property.setDescription(request.getPropertyDetails().getDescription());
             property.setPropertyType(request.getPropertyDetails().getPropertyType());
@@ -187,9 +230,14 @@ public class PropertyService {
 
 
 
-    public String deleteProperty(Long id) {
-        propertyDetailsRepo.deleteById(id);
+    @Transactional
+    public String deleteProperty(UUID userId, Long propertyId) {
+        PropertyDetails property = propertyDetailsRepo.findByIdAndUserId(propertyId, userId)
+                .orElseThrow(() -> new RuntimeException("Property not found for the given user"));
+
+        propertyDetailsRepo.delete(property);
         return "Property deleted successfully!";
     }
 }
+
 

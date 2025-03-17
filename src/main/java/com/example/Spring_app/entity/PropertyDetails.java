@@ -1,6 +1,8 @@
 package com.example.Spring_app.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,6 +17,12 @@ public class PropertyDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_property_user"))
+    @JsonBackReference
+    private User user;
+
     @Column(name = "property_title")
     private String propertyTitle;
 
@@ -131,6 +139,14 @@ public class PropertyDetails {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getPropertyTitle() {

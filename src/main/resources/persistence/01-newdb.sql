@@ -1,8 +1,15 @@
 -- Create tables
 
+-- Table: Users
+CREATE TABLE Users (
+    id UUID PRIMARY KEY
+);
+
+
 -- Table: PropertyDetails
 CREATE TABLE PropertyDetails (
     id SERIAL PRIMARY KEY,
+    user_id UUID REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     property_title VARCHAR(100),
     description VARCHAR(500),
     property_type VARCHAR(100),
@@ -86,12 +93,23 @@ CREATE TABLE Amenities (
     smoke_detectors BOOLEAN DEFAULT FALSE
 );
 
-
+---- Mapping Table (Many-to-Many Relationship)
+--CREATE TABLE UserProperties (
+--    user_id UUID REFERENCES Users(id) ON DELETE CASCADE,
+--    property_id INT REFERENCES PropertyDetails(id) ON DELETE CASCADE,
+--    PRIMARY KEY (user_id, property_id)  -- Ensures uniqueness
+--);
 
 -- Insert data
+
+INSERT INTO Users (id) VALUES
+('550e8400-e29b-41d4-a716-446655440000'), -- User 1 (Unique Properties)
+('550e8400-e29b-41d4-a716-446655440001'), -- User 2 (Shared Properties)
+('550e8400-e29b-41d4-a716-446655440002'); -- User 3 (Shared Properties)
+
 -- Insert 10 properties into PropertyDetails
 INSERT INTO PropertyDetails (
-    property_title, description, property_type, property_status,
+    user_id, property_title, description, property_type, property_status,
     property_category, lot_size, size_in_ft, bedrooms, rooms,
     year_built, garages, available_from, garage_size, extra_details,
     basement, exterior_material, roofing, structure_type, floors,
@@ -99,11 +117,11 @@ INSERT INTO PropertyDetails (
     city, country, state, zipcode, neighbourhood, address,
     street_view_angle, latitude, longitude
 ) VALUES
-('ATS Rhapsody', 'ATS Ready to Move in Apartments in Greater Noida West.', 'Apartment', 'For Sale', 'Active', 5000.00, 2500.50, 4, 7, 2015, '2-car garage', '2025-04-01', 'Large', 'Pool, Fireplace', 'Finished', 'Brick', 'Tile', 'Detached', 2, 'Well-maintained property.', 150.0000, 'A', '2025-05-15', 'Noida', 'India', 'UttarPradesh', '201301', 'Sunny Heights', 'Sector 1, Greater Noida West', 30.123456, 34.052235, -118.243683),
-('ATS Allure', 'ATS Apartments in Greater Noida West.', 'Apartment', 'For Rent', 'Active', 2000.00, 1200.00, 2, 4, 2020, 'Underground garage', '2025-06-01', 'Small', 'Smart home system', 'None', 'Concrete', 'Flat', 'Apartment', 1, 'Pet-friendly.', 200.0000, 'B', '2025-07-01', 'Greater Noida', 'India', 'UttarPradesh', '201319', 'Downtown', 'Sector 22D, Yamuna Expressway, Greater Noida', 45.654321, 40.712776, -74.005974),
-('ATS Kabana High', 'ATS Office & Retail Space in Greater Noida West.', 'Retail Space', 'For Sale', 'Active', 3500.00, 1800.00, 3, 5, 2010, '2-car garage', '2025-07-01', 'Medium', 'Garden, Backyard', 'Partially finished', 'Wood', 'Shingle', 'Detached', 1, 'Quiet neighborhood.', 120.0000, 'C', '2025-08-01', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'West Side', 'Sector 4, Greater Noida West', 60.654321, 41.878113, -87.629799),
-('ATS Destinaire', 'Ats destinaire is the newly launched residential property by ats group.', 'Residential', 'For Sale', 'Active', 10000.00, 3500.00, 5, 10, 2000, '3-car garage', '2025-09-01', 'Large', 'Stable, Tennis Court', 'Full', 'Stone', 'Metal', 'Detached', 3, 'Private retreat.', 100.0000, 'A', '2025-10-01', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'West Noida Extension', 'Sector 1, Greater Noida West', 90.123456, 30.267153, -97.743060),
-('ATS Homekraft Nobility', 'ATS Homekraft Luxury Apartments in Greater Noida West.', 'Apartments', 'For Sale', 'Active', 2500.00, 1500.00, 2, 6, 2018, 'Underground parking', '2025-05-01', 'Medium', 'Concierge service', 'None', 'Glass', 'Slate', 'Condominium', 1, 'Exclusive amenities.', 180.0000, 'A', '2025-06-15', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'WestSide', ' Sector 4, Greater Noida West', 20.123456, 25.761680, -80.191790);
+('550e8400-e29b-41d4-a716-446655440000', 'ATS Rhapsody', 'ATS Ready to Move in Apartments in Greater Noida West.', 'Apartment', 'For Sale', 'Active', 5000.00, 2500.50, 4, 7, 2015, '2-car garage', '2025-04-01', 'Large', 'Pool, Fireplace', 'Finished', 'Brick', 'Tile', 'Detached', 2, 'Well-maintained property.', 150.0000, 'A', '2025-05-15', 'Noida', 'India', 'UttarPradesh', '201301', 'Sunny Heights', 'Sector 1, Greater Noida West', 30.123456, 34.052235, -118.243683),
+('550e8400-e29b-41d4-a716-446655440000', 'ATS Allure', 'ATS Apartments in Greater Noida West.', 'Apartment', 'For Rent', 'Active', 2000.00, 1200.00, 2, 4, 2020, 'Underground garage', '2025-06-01', 'Small', 'Smart home system', 'None', 'Concrete', 'Flat', 'Apartment', 1, 'Pet-friendly.', 200.0000, 'B', '2025-07-01', 'Greater Noida', 'India', 'UttarPradesh', '201319', 'Downtown', 'Sector 22D, Yamuna Expressway, Greater Noida', 45.654321, 40.712776, -74.005974),
+('550e8400-e29b-41d4-a716-446655440001', 'ATS Kabana High', 'ATS Office & Retail Space in Greater Noida West.', 'Retail Space', 'For Sale', 'Active', 3500.00, 1800.00, 3, 5, 2010, '2-car garage', '2025-07-01', 'Medium', 'Garden, Backyard', 'Partially finished', 'Wood', 'Shingle', 'Detached', 1, 'Quiet neighborhood.', 120.0000, 'C', '2025-08-01', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'West Side', 'Sector 4, Greater Noida West', 60.654321, 41.878113, -87.629799),
+('550e8400-e29b-41d4-a716-446655440001', 'ATS Destinaire', 'Ats destinaire is the newly launched residential property by ats group.', 'Residential', 'For Sale', 'Active', 10000.00, 3500.00, 5, 10, 2000, '3-car garage', '2025-09-01', 'Large', 'Stable, Tennis Court', 'Full', 'Stone', 'Metal', 'Detached', 3, 'Private retreat.', 100.0000, 'A', '2025-10-01', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'West Noida Extension', 'Sector 1, Greater Noida West', 90.123456, 30.267153, -97.743060),
+('550e8400-e29b-41d4-a716-446655440002' ,'ATS Homekraft Nobility', 'ATS Homekraft Luxury Apartments in Greater Noida West.', 'Apartments', 'For Sale', 'Active', 2500.00, 1500.00, 2, 6, 2018, 'Underground parking', '2025-05-01', 'Medium', 'Concierge service', 'None', 'Glass', 'Slate', 'Condominium', 1, 'Exclusive amenities.', 180.0000, 'A', '2025-06-15', 'Greater Noida', 'India', 'UttarPradesh', '201301', 'WestSide', ' Sector 4, Greater Noida West', 20.123456, 25.761680, -80.191790);
 
 INSERT INTO AdditionalData (property_id, video_link, video_from, image_link) VALUES
 (1, 'http://example.com/video1.mp4', 'YouTube', ARRAY['http://example.com/image1.jpg', 'http://example.com/image1_2.jpg']),
@@ -137,3 +155,15 @@ INSERT INTO Amenities (
 (3, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE),
 (4, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
 (5, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE);
+
+--
+--INSERT INTO UserProperties (user_id, property_id) VALUES
+---- Unique properties for User 1
+--('550e8400-e29b-41d4-a716-446655440000', 1),
+--('550e8400-e29b-41d4-a716-446655440000', 2),
+--
+---- Shared properties between User 2 and User 3
+--('550e8400-e29b-41d4-a716-446655440001', 3),
+--('550e8400-e29b-41d4-a716-446655440001', 4),
+--
+--('550e8400-e29b-41d4-a716-446655440002', 5);
