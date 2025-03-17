@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "/api/properties/{id}": {
+    "/api/properties/{userId}/{propertyId}": {
       "get": {
         "tags": [
           "property-controller"
@@ -19,7 +19,16 @@
         "operationId": "getProperty",
         "parameters": [
           {
-            "name": "id",
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "propertyId",
             "in": "path",
             "required": true,
             "schema": {
@@ -48,7 +57,16 @@
         "operationId": "updateProperty",
         "parameters": [
           {
-            "name": "id",
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "propertyId",
             "in": "path",
             "required": true,
             "schema": {
@@ -87,7 +105,16 @@
         "operationId": "deleteProperty",
         "parameters": [
           {
-            "name": "id",
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "propertyId",
             "in": "path",
             "required": true,
             "schema": {
@@ -110,12 +137,23 @@
         }
       }
     },
-    "/api/properties": {
+    "/api/properties/{userId}": {
       "get": {
         "tags": [
           "property-controller"
         ],
         "operationId": "getAllProperties",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -137,11 +175,53 @@
           "property-controller"
         ],
         "operationId": "createProperty",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/PropertyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/properties/user": {
+      "post": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "uuid"
               }
             }
           },
@@ -329,6 +409,37 @@
         }
       }
     },
+    "/api/properties/user/{userId}": {
+      "delete": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/investor/delete/{userId}": {
       "delete": {
         "tags": [
@@ -500,6 +611,9 @@
             "type": "integer",
             "format": "int64"
           },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
           "propertyTitle": {
             "type": "string"
           },
@@ -639,6 +753,21 @@
           },
           "amenities": {
             "$ref": "#/components/schemas/Amenities"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropertyDetails"
+            }
           }
         }
       },
