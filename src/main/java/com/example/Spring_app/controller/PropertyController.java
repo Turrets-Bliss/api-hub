@@ -17,7 +17,7 @@ public class PropertyController {
     @Autowired
     private PropertyService propertyService;
 
-    // Create a new user
+
     // Create a new user (takes userId as input)
     @PostMapping("/user")
     public String createUser(@RequestBody UUID userId) {
@@ -27,6 +27,12 @@ public class PropertyController {
     @DeleteMapping("/user/{userId}")
     public String deleteUser(@PathVariable UUID userId) {
         return propertyService.deleteUser(userId);
+    }
+
+    // ✅ NEW: Public endpoint to fetch all properties (No input required)
+    @GetMapping("/landingpage/properties/{userId}")
+    public ResponseEntity<List<PropertyDetails>> getAllPropertiesForLandingPage(@PathVariable UUID userId) {
+        return ResponseEntity.ok(propertyService.getAllProperties(userId));
     }
 
     // Create a new property for a user
