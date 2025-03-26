@@ -11,45 +11,7 @@
     }
   ],
   "paths": {
-    "/api/properties/{userId}/{propertyId}": {
-      "get": {
-        "tags": [
-          "property-controller"
-        ],
-        "operationId": "getProperty",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "propertyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/PropertyRequest"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/api/properties/update": {
       "put": {
         "tags": [
           "property-controller"
@@ -58,7 +20,7 @@
         "parameters": [
           {
             "name": "userId",
-            "in": "path",
+            "in": "query",
             "required": true,
             "schema": {
               "type": "string",
@@ -67,122 +29,11 @@
           },
           {
             "name": "propertyId",
-            "in": "path",
+            "in": "query",
             "required": true,
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PropertyRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "property-controller"
-        ],
-        "operationId": "deleteProperty",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "propertyId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/properties/{userId}": {
-      "get": {
-        "tags": [
-          "property-controller"
-        ],
-        "operationId": "getAllProperties",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PropertyDetails"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "property-controller"
-        ],
-        "operationId": "createProperty",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
             }
           }
         ],
@@ -216,12 +67,82 @@
           "property-controller"
         ],
         "operationId": "createUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/properties/create": {
+      "post": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "createProperty",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "string",
-                "format": "uuid"
+                "$ref": "#/components/schemas/PropertyRequest"
               }
             }
           },
@@ -264,6 +185,114 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/InvestorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/properties/userproperty": {
+      "get": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "getAllProperties",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PropertyDetails"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/properties/property": {
+      "get": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "getProperty",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "propertyId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/properties/catalog": {
+      "get": {
+        "tags": [
+          "property-controller"
+        ],
+        "operationId": "getAllPropertiesForLandingPage",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PropertyDetails"
+                  }
                 }
               }
             }
@@ -409,20 +438,29 @@
         }
       }
     },
-    "/api/properties/user/{userId}": {
+    "/api/properties/remove": {
       "delete": {
         "tags": [
           "property-controller"
         ],
-        "operationId": "deleteUser",
+        "operationId": "deleteProperty",
         "parameters": [
           {
             "name": "userId",
-            "in": "path",
+            "in": "query",
             "required": true,
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "propertyId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],

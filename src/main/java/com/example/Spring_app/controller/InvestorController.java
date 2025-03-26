@@ -3,6 +3,8 @@ package com.example.Spring_app.controller;
 import com.example.Spring_app.dto.InvestorDTO;
 import com.example.Spring_app.service.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -48,12 +50,12 @@ public class InvestorController {
 
     // DELETE: Remove investor by userId
     @DeleteMapping("/delete/{userId}")
-    public String deleteInvestor(@PathVariable String userId) {
+    public ResponseEntity<String> deleteInvestor(@PathVariable String userId) {
         boolean isDeleted = investorService.deleteInvestorByUserId(userId);
         if (isDeleted) {
-            return "Investor with ID " + userId + " deleted successfully.";
+            return ResponseEntity.ok("Investor with ID " + userId + " deleted successfully.");
         } else {
-            return "Investor with ID " + userId + " not found.";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Investor with ID " + userId + " not found.");
         }
     }
 }

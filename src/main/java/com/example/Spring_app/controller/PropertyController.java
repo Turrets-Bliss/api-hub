@@ -17,54 +17,59 @@ public class PropertyController {
     @Autowired
     private PropertyService propertyService;
 
-
     // Create a new user (takes userId as input)
     @PostMapping("/user")
-    public String createUser(@RequestBody UUID userId) {
+    public String createUser(@RequestParam UUID userId) {
         return propertyService.createUser(userId);
     }
 
-    @DeleteMapping("/user/{userId}")
-    public String deleteUser(@PathVariable UUID userId) {
+    @DeleteMapping("/user")
+    public String deleteUser(@RequestParam UUID userId) {
         return propertyService.deleteUser(userId);
     }
 
     // ✅ NEW: Public endpoint to fetch all properties (No input required)
-    @GetMapping("/landingpage/properties/{userId}")
-    public ResponseEntity<List<PropertyDetails>> getAllPropertiesForLandingPage(@PathVariable UUID userId) {
+    @GetMapping("/catalog")
+    public ResponseEntity<List<PropertyDetails>> getAllPropertiesForLandingPage(@RequestParam UUID userId) {
         return ResponseEntity.ok(propertyService.getAllProperties(userId));
     }
 
     // Create a new property for a user
-    @PostMapping("/{userId}")
-    public ResponseEntity<String> createProperty(@PathVariable UUID userId, @RequestBody PropertyRequest request) {
+    @PostMapping("/create")
+    public ResponseEntity<String> createProperty(
+            @RequestParam UUID userId,
+            @RequestBody PropertyRequest request) {
         return ResponseEntity.ok(propertyService.createProperty(userId, request));
     }
 
     // Get details of a specific property
-    @GetMapping("/{userId}/{propertyId}")
-    public ResponseEntity<PropertyRequest> getProperty(@PathVariable UUID userId, @PathVariable Long propertyId) {
+    @GetMapping("/property")
+    public ResponseEntity<PropertyRequest> getProperty(
+            @RequestParam UUID userId,
+            @RequestParam Long propertyId) {
         return ResponseEntity.ok(propertyService.getProperty(userId, propertyId));
     }
 
     // Get all properties for a specific user
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<PropertyDetails>> getAllProperties(@PathVariable UUID userId) {
+    @GetMapping("/userproperty")
+    public ResponseEntity<List<PropertyDetails>> getAllProperties(@RequestParam UUID userId) {
         return ResponseEntity.ok(propertyService.getAllProperties(userId));
     }
 
     // Update a property
-    @PutMapping("/{userId}/{propertyId}")
+    @PutMapping("/update")
     public ResponseEntity<String> updateProperty(
-            @PathVariable UUID userId,
-            @PathVariable Long propertyId,
+            @RequestParam UUID userId,
+            @RequestParam Long propertyId,
             @RequestBody PropertyRequest request) {
         return ResponseEntity.ok(propertyService.updateProperty(propertyId, userId, request));
     }
 
     // Delete a property
-    @DeleteMapping("/{userId}/{propertyId}")
-    public ResponseEntity<String> deleteProperty(@PathVariable UUID userId, @PathVariable Long propertyId) {
+    @DeleteMapping("/remove")
+    public ResponseEntity<String> deleteProperty(
+            @RequestParam UUID userId,
+            @RequestParam Long propertyId) {
         return ResponseEntity.ok(propertyService.deleteProperty(userId, propertyId));
     }
 }
